@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import Item from './itemFlatlistComponent';
 import Filter from './Filter';
 import Header from './header';
+import {toggleIsAdding} from '../redux/actionsCreator'
 export class mainComponent extends Component {
   getWordList() {
     const {myFilter} = this.props;
@@ -25,9 +26,7 @@ export class mainComponent extends Component {
           }}>
           <TouchableOpacity
             onPress={() => {
-              this.props.dispatch({
-                type: 'TOGGLE_ADDING',
-              });
+              this.props.toggleIsAdding()
             }}
             style={{
               marginVertical: 4,
@@ -65,4 +64,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(mainComponent);
+export default connect(mapStateToProps, {toggleIsAdding})(mainComponent);

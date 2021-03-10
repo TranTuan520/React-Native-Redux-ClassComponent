@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
 import {Text, View, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import { filterShowAll, filterMemorized, filterNeedPractice } from '../redux/actionsCreator'
 export class Filter extends Component {
   getTextStyle(statusName) {
     if (statusName === this.props.myFilterStatus) return styles.buttonStyle2;
     return styles.buttonStyle;
   }
-  setFilterStatus(actionType) {
-    this.props.dispatch({type: actionType});
-  }
+  // setFilterStatus(actionType) {
+  //   this.props.dispatch({type: actionType});
+  // }
   render() {
     return (
       <View
@@ -19,21 +20,21 @@ export class Filter extends Component {
         }}>
         <TouchableOpacity
           onPress={() => { 
-            this.setFilterStatus('FILTER_SHOW_ALL');
+            this.props.filterShowAll()
           }}
           style={this.getTextStyle('SHOW_ALL')}>
           <Text style={{color: 'white', fontSize: 22}}>Show All</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            this.setFilterStatus('FILTER_MEMORIZED');
+            this.props.filterMemorized()
           }}
           style={this.getTextStyle('MEMORIZED')}>
           <Text style={{color: 'white', fontSize: 22}}>Memorized</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            this.setFilterStatus('FILTER_NEED_PRACTICE');
+            this.props.filterNeedPractice()
           }}
           style={this.getTextStyle('NEED_PRACTICE')}>
           <Text style={{color: 'white', fontSize: 22}}>NP</Text>
@@ -65,4 +66,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-export default connect(mapStateToProps)(Filter);
+export default connect(mapStateToProps, {filterMemorized, filterNeedPractice, filterShowAll})(Filter);

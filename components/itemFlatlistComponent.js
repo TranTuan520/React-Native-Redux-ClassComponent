@@ -1,13 +1,10 @@
 import React, {Component} from 'react';
 import {Text, View, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
-
+import { toggleShow, toggleMemorized } from '../redux/actionsCreator';
 export class itemFlatlistComponent extends Component {
   memorized() {
-    this.props.dispatch({
-      type: 'TOGGLE_MEMORIZED',
-      id: this.props.item.id,
-    });
+    this.props.toggleMemorized(this.props.item.id);
   }
   render() {
     const {en, vn, memorized} = this.props.item;
@@ -39,10 +36,7 @@ export class itemFlatlistComponent extends Component {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              this.props.dispatch({
-                type: 'SHOW',
-                id: this.props.item.id,
-              });
+              this.props.toggleShow(this.props.item.id);
             }}
             style={{
               borderWidth: 1,
@@ -63,4 +57,4 @@ function mapStateToProps(state) {
   return {myWords: state.arrWords};
 }
 
-export default connect(mapStateToProps)(itemFlatlistComponent);
+export default connect(mapStateToProps, {toggleShow, toggleMemorized})(itemFlatlistComponent);

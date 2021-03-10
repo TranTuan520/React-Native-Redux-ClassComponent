@@ -1,14 +1,11 @@
 import React, {Component} from 'react';
 import {Text, View, TouchableOpacity, TextInput, Modal} from 'react-native';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
+import {addWord} from '../redux/actionsCreator'
 export class header extends Component {
   onAdd() {
     const {en, vn} = this.state;
-    this.props.dispatch({
-      type: 'ADD_WORD',
-      en,
-      vn,
-    });
+    this.props.addWord(en, vn);
   }
   constructor(props) {
     super(props);
@@ -17,15 +14,6 @@ export class header extends Component {
       vn: '',
     };
   }
-  onAdd() {
-    const { en, vn } = this.state
-    this.props.dispatch({
-        type: 'ADD_WORD',
-        en,
-        vn,
-        
-    })
-}
   render() {
     return (
       <View
@@ -79,4 +67,4 @@ export class header extends Component {
   }
 }
 
-export default connect()(header);
+export default connect(null, {addWord})(header);
